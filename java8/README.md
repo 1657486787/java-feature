@@ -59,6 +59,7 @@
     
     详见：com.suns.methodreference.instanceref
     
-    
-    
+## 6.Stream流式操作
+    详见：com.suns.stream
+
     
