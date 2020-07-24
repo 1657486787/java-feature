@@ -35,7 +35,7 @@ public class ExecTest {
         list.add(new Student("zhaoliu", 15, 95));
         list.add(new Student("mazi", 14, 60));
         list.add(new Student("mazi2", 13, 59));
-        list.add(new Student("mazi2", 13, 59));
+//        list.add(new Student("mazi2", 13, 59));
     }
 
 
@@ -307,6 +307,71 @@ public class ExecTest {
         Optional<Student> optional = students().reduce((e1, e2) -> Student.builder().score(e1.getScore() + e2.getScore()).build());
         System.out.println(optional.get().getScore());
 
+    }
+
+
+
+
+    @Test
+    public void method17(){
+        //Java Map 通过 key 或者 value 过滤
+        Map<String,Object> map1 = new HashMap<>();
+        map1.put("name","zs");
+        map1.put("age",18);
+        map1.put("score",99);
+        //过来map, 只保留name 和 score
+
+        Map<String, Object> resultMap = new HashMap<>();
+        for (Map.Entry<String,Object> entry : map1.entrySet()) {
+            if ("name".equals( entry.getKey()) || "score".equals( entry.getKey()) ) {
+                resultMap.put(entry.getKey(), entry.getValue());
+            }
+        }
+        System.out.println(resultMap);
+
+        System.out.println("----------------------------------------------------");
+
+        //lambda写法
+        Map<String, Object> resultMap2 = map1.entrySet().stream().filter(e -> "name".equals(e.getKey()) || "score".equals(e.getKey())).collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue()));
+        System.out.println(resultMap2);
+    }
+
+    @Test
+    public void method18(){
+        //Java List<Map> 通过 key 或者 value 过滤
+
+        //组装List<Map>
+        Map<String,Object> map1 = new HashMap<>();
+        map1.put("name","zs");
+        map1.put("age",18);
+        map1.put("score",99);
+        Map map2 = new HashMap<>();
+        map2.put("name","lisi");
+        map2.put("age",11);
+        map2.put("score",91);
+        Map map3 = new HashMap<>();
+        map3.put("name","ww");
+        map3.put("age",12);
+        map3.put("score",100);
+        List<Map<String,Object>> mapList = new ArrayList();
+        mapList.add(map1);
+        mapList.add(map2);
+        mapList.add(map3);
+
+
+        System.out.println("----------------------------------------------------");
+
+
+        List<Map<String,Object>> resultList = new ArrayList();
+        //lambda写法
+        mapList.stream().forEach(
+                e -> {
+                    Map<String, Object> collect = e.entrySet().stream().filter(e1 -> "name".equals(e1.getKey()) || "score".equals(e1.getKey())).collect(Collectors.toMap(e1 -> e1.getKey(), e1 -> e1.getValue()));
+                    resultList.add(collect);
+                }
+        );
+
+        System.out.println(resultList);
     }
 
 }
