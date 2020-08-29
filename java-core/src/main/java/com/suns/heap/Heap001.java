@@ -12,9 +12,11 @@ public class Heap001 {
 
     /**
      * 1.执行main方法时加上该参数
-     * -Xmx100M
-     * -XX:+HeapDumpBeforeFullGC
-     * -XX:+HeapDumpAfterFullGC
+     * -xms100M -Xmx100M
+     * -XX:+PrintGCDetails  //添加改语句，但发生oom时程序不会停
+     * -XX:+HeapDumpBeforeFullGC  //添加改语句，但发生oom时程序不会停
+     * -XX:+HeapDumpAfterFullGC   //添加改语句，但发生oom时程序不会停
+     * -XX:+HeapDumpOnOutOfMemoryError
      * -XX:HeapDumpPath=d:\temp\dump
      * 2.使用jconsole实时查看内存变化
      * 3.使用MAT工具分析,下载地址：https://www.eclipse.org/mat/downloads.php
@@ -24,7 +26,7 @@ public class Heap001 {
         System.out.println("start...");
         try {
             Thread.sleep(15000);
-            for(int i=0;i<100000000;i++){
+            for(int i=0;i<10000000;i++){
                 map.put(i,new TestMemory());
                 System.out.println("put :"+i);
             }
